@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <!-- 외부 자바스크립트 파일 참조하기 -
+            이럴 경우 시점의 문제 발생 -주의
+            해결방법 : 순서지향적인 처리
+            DOM구성이 완료된 후에 html문서의 태그정보를 접근하려면 defer 붙임
+            이유는 코딩 순서대로 진행되기 때문에
+    -->
+    <script defer src="./board.js"></script>
+    <link rel="stylesheet" href="./board.css" />
+    <script type="text/javascript">
+      //전역변수 선언자리
+      function getBoardSold() {
+        //마진은 버튼을 클릭했을 때 호출함수임
+        console.log("getBoardSold");
+        //createRequest(); 비동기통신객체를 생성하기
+        xhrObject = createRequest2(); //비동기통신객체를 리턴값으로 받기
+        console.log(xhrObject);
+        const url = "./boardSellAction.html"; //집계된 보도 판매량 수치
+        xhrObject.open("GET", url, true); //true:async, false : sync-이럴거면 ajax필요없음
+        xhrObject.onreadystatechange = soldProcess;
+        xhrObject.send(); //요청을 보내는 것
+      }
+      //요청에 대한 응답이 다운로드 되었을 때
+      //서버로 부터 전달된 상태값이 200번 일때
+      //호출되는 함수 - 콜백함수라고 함 - 어떤 조건이 만족되면 시스템이 호출해주는 함수임
+      function soldProcess() {
+        console.log("soldProcess 호출 => " + xhrObject.readyState);
+        if (xhrObject.readyState == 4) {
+          //0->1->2->3->4 상태값이 바뀔때마다 콜백함수 호출됨
+          if (xhrObject.status == 200) {
+            //응답이 정상처리 됨
+            const newTotal = xhrObject.responseText; //boardSellAction에서 새로 받아온 값임
+            console.log(newTotal);
+            const boardSoldEl = document.querySelector("#boardSold");
+            replaceText(boardSoldEl, newTotal);
+            //구매가
+            const costEl = document.querySelector("#cost");
+            let cost = getText(costEl);
+            //소비자가
+            const priceEl = document.querySelector("#price");
+            let price = getText(priceEl);
+            //보드 한 개당 마진 금액 계산
+            let cashPerBoard = price - cost;
+            let cash = cashPerBoard * newTotal;
+            console.log("마진금액은 " + cash);
+            //마진 금액 붙일 곳
+            const cashEl = document.querySelector("#cash");
+            replaceText(cashEl, cash);
+          }
+        }
+      }
+    </script>
+  </head>
+  <body>
+    <!-- 생략하면 text/javascript 임 -->
+    <script>
+      window.addEventListener("load", function (event) {
+        const btnMargin = document.querySelector("#btnMargin");
+        btnMargin.addEventListener("click", (event) => {
+          event.preventDefault(); //submit으로 인한 전송처리로 페이지가 새로고침 방지
+          getBoardSold();
+        });
+      });
+    </script>
+    ​
+    <h2>보드 판매량</h2>
+    <table width="300px" height="80px">
+      <tr>
+        <th width="120px">보드 판매량</th>
+        <td width="180px"><span id="boardSold">10</span></td>
+      </tr>
+      <!-- 
+		소비자가-구매가=보드 한개당 마진 금액
+		한개당 마진 금액*판매량=마진금액계산
+		-->
+      <tr>
+        <th>구매가</th>
+        <td><span id="cost">100</span>원</td>
+      </tr>
+      <tr>
+        <th>소비자가</th>
+        <td><span id="price">120</span>원</td>
+      </tr>
+    </table>
+    <h2>마진금액 : <span id="cash">0</span>원</h2>
+    <button type="submit" id="btnMargin">마진은?</button>
+  </body>
+</html>

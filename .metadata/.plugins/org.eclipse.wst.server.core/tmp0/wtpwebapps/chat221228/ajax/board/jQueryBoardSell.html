@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+    <link rel="stylesheet" href="./board.css" />
+    <script type="text/javascript">
+      //전역변수 선언자리
+      const url = "./boardSellAction.html"; //집계된 보드 판매량 수치
+      function getBoardSold() {
+        $.ajax({
+          type: "GET", //브라우저가 인터셉터 당한다 ,  POST는 인터셉터 못한다
+          url: url,
+          success: function (data) {
+            //파라미터 data에는 boardSellAction.html처리된 결과를 담음 = .responseText
+            console.log(data); //30출력
+            soldProcess(data);
+          },
+        });
+      }
+
+      function soldProcess(data) {
+        console.log("soldProcess 호출 => " + data);
+        $("#boardSold").html(`<font size = "38"> ${data} </font>`); //표의 보드판매량에 data값이 들어간다
+        console.log($("#price").text());
+        const price = $("#price").text();
+        const cost = $("#cost").text();
+        let cashPerBoard = price - cost;
+        let cash = cashPerBoard * data;
+        $("#cash").html(`<font size='28'>${cash} </font>`);
+      } //end of soldProcess
+    </script>
+  </head>
+  <body>
+    <!-- 생략하면 text/javascript 임 -->
+    <script>
+      $(document).ready(function () {
+        const btnMargin = $("#btnMargin"); //jquery를 매번 쓰기 귀찮아서 $를 쓰게됨
+        
+        btnMargin.bind("click", function () {
+          event.preventDefault();
+          getBoardSold();
+        });
+      });
+    </script>
+
+    <h2>보드 판매량</h2>
+    <table width="300px" height="80px">
+      <tr>
+        <th width="120px">보드 판매량</th>
+        <td width="180px"><span id="boardSold">10</span></td>
+      </tr>
+      <!-- 
+		소비자가-구매가=보드 한개당 마진 금액
+		한개당 마진 금액*판매량=마진금액계산
+		-->
+      <tr>
+        <th>구매가</th>
+        <td><span id="cost">100</span>원</td>
+      </tr>
+      <tr>
+        <th>소비자가</th>
+        <td><span id="price">120</span>원</td>
+      </tr>
+    </table>
+    <h2>마진금액 : <span id="cash">0</span>원</h2>
+    <button type="submit" id="btnMargin">마진은?</button>
+  </body>
+</html>

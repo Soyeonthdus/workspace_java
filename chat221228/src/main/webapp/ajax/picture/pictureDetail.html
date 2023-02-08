@@ -1,0 +1,27 @@
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+<script>
+  $(document).ready(function () {
+    const queryString = new URLSearchParams(window.location.search); //주소창에 있는 url정보를 가져 오는 것
+    //-> 아작스를 통해 내부통신을 사용하면 가져올 수 없다
+    const id = queryString.get("id");
+    console.log(id); //null
+    let img = null;
+    const pics = ["회의.jpg", "회의-1.jpg", "회의-2.jpg", "회의-3.jpg"];
+    for (let i = 0; i < pics.length; i++) {
+      console.log(id + " ," + i);
+      if (id == i) {
+        img = pics[i];
+        console.log(img);
+        $("#imgDetail").attr("src", "../../images/sample/" + img);
+      } //end of if
+    } //end of for
+  });
+</script>
+
+<img
+  id="imgDetail"
+  src="../../images/sample/회의.jpg"
+  width="400px"
+  height="400px"
+  alt="그림"
+/>

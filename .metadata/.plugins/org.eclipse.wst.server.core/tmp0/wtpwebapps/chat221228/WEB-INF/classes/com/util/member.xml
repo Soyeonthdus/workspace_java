@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="MemberMapper">
+
+<!-- 
+!DOCTYPE은 주석이 아니다
+mapper : 루트태그이름. 반드시 이 태그 안에 작성할 것 -> 자바, 스프링, xml(MVC패턴, spring boot(annotation - 자바코드), spring, maven, gradle, 코틀린)환경
+ -->
+
+<!--
+사용자가 입력한 값을 받아올 때 parameterType에 해당하는 타입을 적는다.
+만일 사용자 정의 클래스라면(예 : memberVO)
+패키지를 포함하는 fullname으로 작성함
+  -->
+
+	<!-- 	<select id="currentDate" parameterType="java.util.HashMap" resultType="java.lang.String">
+		SELECT to_char(sysdate, 'YYYY-MM-DD') FROM dual     
+	</select> -->
+	<!-- 	<select id="getMemberList" parameterType="int" resultType="map"></select> -->
+	<!-- 	<select id="getMemberList" parameterType="java.lang.Integer" resultType="map"></select> -->
+		  	
+	<select id="getMemberList" parameterType="java.util.HashMap" resultType="map"> <!-- map일때는 자동으로 대문자 -->
+		SELECT mem_no, mem_id, mem_name From member
+		<where>
+		<if test = 'mem_no > 0'>
+			mem_no = #{mem_no}
+		
+		</if>
+		</where>
+	</select>	
+	
+		<select id="myBatisMemberList2" parameterType="java.util.HashMap" resultType="com.vo.MemberVO">
+		SELECT mem_no, mem_id, mem_name From member
+		<where>
+		<if test = 'mem_no > 0'>
+			mem_no = #{mem_no}
+		</if>
+		</where>
+		Order by mem_no desc
+	</select>	
+	
+</mapper>

@@ -1,0 +1,14 @@
+127.0.0.1 - - [28/Dec/2022:17:07:08 +0900] "GET / HTTP/1.1" 404 807
+0:0:0:0:0:0:0:1 - - [28/Dec/2022:17:07:08 +0900] "GET /NewFile.html HTTP/1.1" 200 148
+0:0:0:0:0:0:0:1 - - [28/Dec/2022:17:07:08 +0900] "GET /favicon.ico HTTP/1.1" 404 818
+127.0.0.1 - - [28/Dec/2022:17:12:33 +0900] "GET / HTTP/1.1" 404 807
+0:0:0:0:0:0:0:1 - - [28/Dec/2022:17:12:34 +0900] "GET /NewFile.html HTTP/1.1" 200 149
+192.168.10.70 - - [28/Dec/2022:17:13:09 +0900] "GET /NewFile.html HTTP/1.1" 200 149
+192.168.10.70 - - [28/Dec/2022:17:13:09 +0900] "GET /favicon.ico HTTP/1.1" 404 818
+0:0:0:0:0:0:0:1 - - [28/Dec/2022:17:17:48 +0900] "GET /NewFile.html HTTP/1.1" 200 338906
+0:0:0:0:0:0:0:1 - - [28/Dec/2022:17:17:49 +0900] "GET /shoppingbox/shoppingboxnew/main.nhn?mode=plusdeal&domain=N HTTP/1.1" 404 850
+0:0:0:0:0:0:0:1 - - [28/Dec/2022:17:18:14 +0900] "GET /NewFile.html HTTP/1.1" 304 -
+0:0:0:0:0:0:0:1 - - [28/Dec/2022:17:18:14 +0900] "GET /shoppingbox/shoppingboxnew/main.nhn?mode=plusdeal&domain=N HTTP/1.1" 404 850
+192.168.10.69 - - [28/Dec/2022:17:22:32 +0900] "GET /NewFile.html HTTP/1.1" 200 338906
+192.168.10.69 - - [28/Dec/2022:17:22:32 +0900] "GET /shoppingbox/shoppingboxnew/main.nhn?mode=plusdeal&domain=N HTTP/1.1" 404 850
+192.168.10.69 - - [28/Dec/2022:17:22:32 +0900] "GET /favicon.ico HTTP/1.1" 404 818
