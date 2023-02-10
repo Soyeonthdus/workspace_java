@@ -1,0 +1,37 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Insert title here</title>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.3/jquery.min.js"></script>
+  <script>
+  	const autoReload = () => {
+  		console.log("autoReload 호출")
+  		 $.ajax({
+  	          type: "GET", 
+  	          url: "newsList.jsp",
+  	          success: function (data) {
+  	            //파라미터 data에는 boardSellAction.html처리된 결과를 담음 = .responseText
+  	            //console.log(data);
+  	            $("#d_news").html(data);
+  	          },
+  	        });
+  	}
+  </script>
+</head>
+<body>
+  <script type = "text/javascript">
+  	$(document).ready(()=>{
+  		start = () =>{
+  			setInterval(autoReload, 2000);
+  		}
+  		start();
+  	})
+  </script>
+  <div id = "d_news">뉴스 준비중...</div>
+</body>
+</html>

@@ -1,0 +1,15 @@
+.footer {
+  display: flex;
+  color: red;
+  font-size: 1rem;
+  align-content: center;
+}
+
+.card-group{
+	display : inline-block;
+	margin:1.5rem;
+}
+
+.card{
+	padding-right: 1.0rem;
+}
