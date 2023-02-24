@@ -1,0 +1,100 @@
+리액트와 서블릿 연동하기-chat221228(나의 경우 chat_banana | D:\workspace_java\chat_banana)
+yarn 패키지 매니저를 사용함
+설치시-g를 주면 전역에서 사용가능하게 설치(-D는 개발자 의존성 주입 : spring maven, gradle)
+npm install -g yarn
+패키지 매니저 버전 확인
+yarn-version
+
+리액트 프로젝트 생성하기
+1. yarn으로 생성한다.
+yarn create react-app template2023
+단 현재 바라보는 폴더 아래에 template2023폴더가 생성이 된다는것을 기억하기.
+VSCode로 프로젝트를 열때에도 위 경로에서 열어야 에러가 없다.
+
+원하는 경로에서 열기!! 경로문제를 가볍게 생각하면 큰일난다.
+항상 D:\workspace_java\chat_banana\src\main\react-front 여기에서 연다.
+
+2. $ yarn init --force 엔터
+엔터를 계속 치면 기본값으로 생성이 된다. 디폴트 값으로 package.json에 등록됨.
+"description": "chat221128프로젝트와리애트프로젝트연동",
+  "main": "index.js",
+  "author": "dodoringring<dodohee1504@gmail.com>",
+  "license": "MIT"
+
+  실행하기
+  $ yarn start 엔터치기
+  http://localhost:3000/index.html실행됨->div id="root"
+
+  사용자 정의 태그를 만들어서 사용
+  ReactDOM.createRoot(rootElement).render(element(<Paint/> <Nice/>))
+
+  document.querySelector("#root")
+  render
+
+  index.html->index.js->BrowserRouter로 App.jsx에서 Router통해 페이지 링크
+
+3. react-router-dom을 설치한다. 웹 페이지 제작에 필수이다.
+라우터가 하는 역할이 화면 전환이다. 이 역할에 링크도 포함 되어있다.
+<React.StrictMode>
+    <BrowserRouter>
+    <App/>
+    </BrowserRouter>
+  </React.StrictMode>
+
+4.CSS추가분
+React-BootStrap
+$ yarn add react-bootstrap
+
+만일 React-BootStrap에 미지원 부분에 대해서는 bootStrap
+설치하여 사용자 정의 CSS로 처리한다.
+
+$ yarn add bootstrap
+->CSS라이브러리 설치
+
+CSS를 자바스크립트로 설치하는 style-components 설치
+$ yarn add styled-components
+
+5.폰트어썸-무료 이모티콘사용하기
+$ yarn add @fortawesome/fontawesome-free
+
+6.axios를 설치한다.-비동기 처리를 도와준다.
+Moesif CORS-true/flase-프록시 (나중에 한다...)
+-톰캣서버의 서블릿을 요청 할 계획
+제이쓴을 지원하는 API가 따로있다.
+패치API보다는 리액트에서 많이 쓰는 엑시오스 쓸예정이다.
+fetch API에서 지원안되는 json포맷 지원받음
+
+
+import axios from 'axios';
+import React from 'react'
+
+export const dbLogic = () => {
+  return new Promise((resolve, reject)=>{
+    try {
+      const response=axios({
+        method:"get",
+        url:process.env.React_APP_CHAT221228_IP+"dept/jasonDeptList.st1",
+        params:params,
+      })
+      resolve(response)
+    } catch (error) {
+      reject(error);
+    }
+  });
+}
+/* rafce단축키 에로우펑션만들어줌 */
+
+7. firebase설치-9.17.1
+$ yarn add firebase
+
+파이어베이스에서는...지원한다
+로그인 인증시에 사용
+회원가입
+RealtimeDatabaseServer-채팅기능 활용-테스트버전 30일만 됨...
+Strage-이미지 동영상-30일후에 갱신하자!!
+
+
+.env파일사용
+구글 키값을 다 정리해놓는다.
+카카오 키값도  추가해줌
+.git ignore에 등록해서 배제하기

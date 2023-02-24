@@ -9,13 +9,17 @@
 				value="oracle.jdbc.OracleDriver" />
 			<property name="url"
 				value="jdbc:oracle:thin:@localhost:1521:orcl" />
-			<property name="username" value="banana" />
+			<property name="username" value="scott" />
 			<property name="password" value="tiger" />
 		</dataSource>
 		</environment>
 	</environments>
+	<!-- 업무에 따라 관리할 쿼리문을 담은 xml문서의 물리적인 위치와 파일명을 등록할 것 -->
 	<mappers>
+		<mapper resource="com/mybatis/mapper/test.xml" />
+		<mapper resource="com/mybatis/mapper/member.xml" />
+		<mapper resource="com/mybatis/mapper/board.xml" />
 		<mapper resource="com/util/book.xml" />
-		<mapper resource="com/util/member.xml" />
+		<mapper resource="com/util/member2.xml" />
 	</mappers>
 </configuration>

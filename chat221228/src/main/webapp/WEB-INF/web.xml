@@ -1,12 +1,54 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd" id="WebApp_ID" version="4.0">
-  <display-name>chat221228</display-name>
-  <welcome-file-list>
-    <welcome-file>index.html</welcome-file>
-    <welcome-file>index.htm</welcome-file>
-    <welcome-file>index.jsp</welcome-file>
-    <welcome-file>default.html</welcome-file>
-    <welcome-file>default.htm</welcome-file>
-    <welcome-file>default.jsp</welcome-file>
-  </welcome-file-list>
+<web-app  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd" id="WebApp_ID" version="4.0">
+    <context-param>
+        <param-name>log4jConfigLocation</param-name>
+        <param-value>/WEB-INF/classes/log4.properties</param-value>
+    </context-param>
+     <servlet>
+    	<servlet-name>TestServlet</servlet-name>
+    	<servlet-class>com.mvc.controller.TestServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+    	<servlet-name>TestServlet</servlet-name>
+    	<url-pattern>/test/test.do</url-pattern>
+    </servlet-mapping>
+     <servlet>
+    	<servlet-name>DeptServlet</servlet-name>
+    	<servlet-class>com.day1.DeptManager</servlet-class>
+    </servlet>
+    <servlet-mapping>
+    	<servlet-name>DeptServlet</servlet-name>
+    	<url-pattern>/jEasyUI/dept/insertAction.do</url-pattern>
+    </servlet-mapping>
+    <servlet>
+    	<servlet-name>HelloServlet</servlet-name>
+    	<servlet-class>com.day1.HelloServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+    	<servlet-name>HelloServlet</servlet-name>
+    	<url-pattern>/day1/hello.kh</url-pattern>
+    </servlet-mapping>
+        <servlet>
+    	<servlet-name>FrontController1</servlet-name>
+    	<servlet-class>com.pojo.step1.FrontMVC1</servlet-class>
+    </servlet>
+    <servlet-mapping>
+    	<servlet-name>FrontController1</servlet-name>
+    	<!-- *.st1하면 어떤 요청이름이 오든 확장자가 st1으로 끝나면 FrontMVC1서블릿이 인터셉트 함 
+    			web.xml을 수정하면 무조건 서버를 재기동하애 수정된 내용이 반영됨
+    	-->
+    	<url-pattern>*.st1</url-pattern>
+    </servlet-mapping>
+<session-config>
+  <session-timeout>10</session-timeout>
+</session-config>
 </web-app>
+
+<!-- 
+	Deployeement Descriptor
+	배치서술자
+	spring maven 빌드할 때는 -> pom.xml파일 등록
+	
+	web.xml문서를 수정하면 반드시 서버를 내렸다가 다시 가동할 것
+	톰캣서버를 기동하면 가장 먼저 읽는다
+ -->
