@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd" id="WebApp_ID" version="4.0">
+  <display-name>pojo_step1</display-name>
+  <context-param>
+        <param-name>log4jConfigLocation</param-name>
+        <param-value>/WEB-INF/classes/log4.properties</param-value>
+    </context-param>
+      <servlet>
+    	<servlet-name>FrontController1</servlet-name>
+		<servlet-class>com.pojo.step1.FrontMVC11</servlet-class>    
+    </servlet>
+    <servlet-mapping>
+    	<servlet-name>FrontController1</servlet-name>
+    	<!-- *.st1하면 어떤 요청이 오든 확장자가 st1으로 끝나면 FrontMVC1서블릿이 인터셉트함
+    	     web.xml을 수정하면 무조건 서버를 재기동 해야 수정된 내용이 반영된다. -->
+    	<url-pattern>*.st1</url-pattern>
+    </servlet-mapping>
+  
+</web-app>
