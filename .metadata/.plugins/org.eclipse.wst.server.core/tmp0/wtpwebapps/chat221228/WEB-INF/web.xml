@@ -39,6 +39,15 @@
     	-->
     	<url-pattern>*.st1</url-pattern>
     </servlet-mapping>
+    
+    <servlet>
+    	<servlet-name>FrontController3</servlet-name>
+    	<servlet-class>com.pojo.step3.ActionSupport</servlet-class>
+    </servlet>
+    <servlet-mapping>
+    	<servlet-name>FrontController3</servlet-name>
+    	<url-pattern>*.st3</url-pattern>
+    </servlet-mapping>
 <session-config>
   <session-timeout>10</session-timeout>
 </session-config>
