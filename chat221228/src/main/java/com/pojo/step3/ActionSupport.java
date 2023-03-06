@@ -15,22 +15,22 @@ public class ActionSupport extends HttpServlet {
 			throws ServletException, IOException {
 				 logger.info("doService 호출");
 				    String uri = req.getRequestURI();
-				    logger.info(uri);
+				 logger.info(uri);
 				    String context = req.getContextPath(); // -> server.xml
-				    logger.info(context); // /dept/getDeptList.st1
+				 logger.info(context); // /dept/getDeptList.st1
 				    String command = uri.substring(context.length() + 1); // context 정보만 제외된 나머지 경로 정보 담음
 				    int end = command.lastIndexOf("."); //16 - st1 잘라내기 위해 사용
 				    command = command.substring(0, end); // /board/getBoardList
 				    String upmu[] = null; // upmu[0] = 업무명|폴더명, upmu[1] = 요청 기능 이름
 				    upmu = command.split("/"); // /dept, getDeptList
-				    logger.info(upmu[0] + "," +upmu[1]);
+				 logger.info(upmu[0] + "," +upmu[1]);
 					req.setAttribute("upmu", upmu);
 					Object obj = "";
-					try {
-						obj = HandlerMapping.getController(upmu, req, req);
-					}catch(Exception e) {
-						logger.info("Exception: " + e.toString());
-					}
+						try {
+							obj = HandlerMapping.getController(upmu, req, res);
+						}catch(Exception e) {
+							logger.info("Exception: " + e.toString());
+						}
 				
 					if(obj != null) {//redirect : XXX.jsp or forward : XXX.jsp
 						String pageMove[] = null;
