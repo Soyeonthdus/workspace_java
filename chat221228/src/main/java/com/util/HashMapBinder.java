@@ -11,7 +11,9 @@ public class HashMapBinder {
 	HttpServletRequest req = null;
 	//생성자
 	public HashMapBinder() {}
+	//생성자 파라미터(지역변수)에 요청객체가 필요한 이유는 뭐죠?
 	public HashMapBinder(HttpServletRequest req) {
+		//생성자의 1역할 - 전변의 초기화
 		this.req = req;
 	}
 	//메소드

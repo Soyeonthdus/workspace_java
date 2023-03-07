@@ -13,6 +13,7 @@ import com.util.MyBatisCommonFactory;
 public class Board3Dao {
 	Logger logger = Logger.getLogger(Board3Dao.class);
 	MyBatisCommonFactory mcf = new MyBatisCommonFactory();
+	
 	public List<Map<String, Object>> boardList(Map<String, Object> pMap) {
 		logger.info("boardList호출");
 		List<Map<String,Object>> bList = null;
@@ -75,7 +76,7 @@ public class Board3Dao {
 			logger.info(result);//채번한 글번호 
 		} catch (Exception e) {
 			e.printStackTrace();
-		}				
+		}			
 		return result;
 	}
 	public void bStepUpdate(Map<String, Object> pMap) {
@@ -94,4 +95,54 @@ public class Board3Dao {
 				e.printStackTrace();
 			}				
 	}//end of bStepUpdate
+	/************************************
+	 * @글 수정하기 구현
+	 * @param pMap사용자가 입력한 값 받아옴
+	 *************************************/
+	public int boardMUpdate(Map<String, Object> pMap) {
+		int result = 0;
+		SqlSessionFactory sqlSessionFactory = null;
+		SqlSession sqlSession = null;
+			try { 
+				sqlSessionFactory = mcf.getSqlSessionFactory();
+				sqlSession = sqlSessionFactory.openSession();
+				result = sqlSession.update("boardMUpdate", pMap);
+				if(result == 1) {
+					sqlSession.commit();
+				}
+				logger.info(result);
+			} catch (Exception e) {
+				e.printStackTrace();
+}
+			return result;
+	}
+	
+	/************************************
+	 * @글 삭제하기 구현
+	 * @param pMap사용자가 입력한 값 받아옴
+	 *************************************/
+	public int boardMDelete(Map<String, Object> pMap) {
+		int result = 0;
+		SqlSessionFactory sqlSessionFactory = null;
+		SqlSession sqlSession = null;
+			try { 
+				sqlSessionFactory = mcf.getSqlSessionFactory();
+				sqlSession = sqlSessionFactory.openSession();
+				int bm_no = 0;
+				if(pMap.get("bm_no") != null) {
+					bm_no = Integer.parseInt(pMap.get("bm_no").toString());
+				}
+				result = sqlSession.update("boardMDelete", bm_no);
+				if(result == 1) {
+					sqlSession.commit();
+				}
+				logger.info(result);
+			} catch (Exception e) {
+				e.printStackTrace();
+}
+			return result;
+	
+	}//end of class
+	
+	
 }

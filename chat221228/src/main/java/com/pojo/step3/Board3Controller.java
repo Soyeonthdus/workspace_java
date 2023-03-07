@@ -63,6 +63,11 @@ public class Board3Controller implements Controller3 {
 		public Object boardInsert(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 			logger.info("boardInsert호출");
 			int result = 0;
+			//폼태그 안에 사용자가 입력한 정보(bm_writer, bm_title, bm_content ....)를 받아온다 
+			//req.getParameter("bm_writer");
+			//req.getParameter("bm_title");
+			//req.getParameter("bm_writer");
+			//req.getParameter("bm_writer");
 			Map<String, Object> pMap = new HashMap<>();
 			HashMapBinder hmb = new HashMapBinder(req);
 			hmb.bind(pMap);
@@ -81,22 +86,42 @@ public class Board3Controller implements Controller3 {
 		public Object boardUpdate(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 			logger.info("boardUpdate호출");
 			int result = 0;
-			
+			Map<String, Object> pMap = new HashMap<>();
+			HashMapBinder hmb = new HashMapBinder(req);
+			hmb.bind(pMap);
+			logger.info(pMap);
+			//result 값의 변화를 주는 코드 추가 => 현재는 0
+			result = boardLogic.boardUpdate(pMap);
+			String path = "";
 			if(result==1) {
-				res.sendRedirect("boardInsertSuccess.jsp");
-				return null;
+				path = "redirect:/board3/boardList.st3";
+				
+			}else {
+				path = "boardInsertFail.jsp";
+				res.sendRedirect(path);
 			}
-			return "redirect:/board3/boardList.st3";
+			return path;
 		}
+		
+		
 	@Override
 	public Object boardDelete(HttpServletRequest req, HttpServletResponse res) throws ServletException, IOException {
 		logger.info("boardDelete호출");
 		int result = 0;		
-		
+		Map<String, Object> pMap = new HashMap<>();
+		HashMapBinder hmb = new HashMapBinder(req);
+		hmb.bind(pMap);
+		result= boardLogic.boardDelete(pMap); //이게 없으면 안된다
+		//없으면 java.lang.ArrayIndexOutOfBoundsException: Index 1 out of bounds for length 1 에러뜸
+		String path = "";
 		if(result==1) {
-			res.sendRedirect("boardInsertSuccess.jsp");
-			return null;
+			logger.info("DB에서 삭제 성공");
+			path = "redirect:/board3/boardList.st3";
 		}
-		return "redirect:/board3/boardList.st3";
+		else {//result =0인 경우 else 타게 되므로 redirect문장 추가안해주면 /표시 따라 잘라주는데 아무것도 안들어가게 된다\
+			path="redirect:/board3/boardInsertFail.jsp";
+			res.sendRedirect(path);
+		}
+		return path;
 	}
 }

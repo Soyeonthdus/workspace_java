@@ -15,6 +15,21 @@ public class Board3Logic {
 		bList = boardDao.boardList(pMap);
 		return bList;
 	}
+	
+	public int boardUpdate(Map<String, Object> pMap) {
+		logger.info("boardUpdate 호출 : " + pMap);
+		int result = 0;
+		result = boardDao.boardMUpdate(pMap);
+		return result;
+	}
+	
+	public int boardDelete(Map<String, Object> pMap) {
+		logger.info("boardDelete 호출 : " + pMap);
+		int result = 0;
+		result = boardDao.boardMDelete(pMap);
+		return result;
+	}
+	
 	public int boardInsert(Map<String, Object> pMap) {
 		logger.info("boardInsert호출 : "+pMap);
 		int result = 0;
@@ -28,7 +43,13 @@ public class Board3Logic {
 		}
 		//댓글쓰기야?
 		if(bm_group > 0) {
-			boardDao.bStepUpdate(pMap);
+			/*
+			 UPDATE board_master_t
+		    SET bm_step = bm_step + 1
+		    WHERE bm_group =:g
+		    AND bm_step >:s 
+			 */
+			boardDao.bStepUpdate(pMap); //bm_group =8, bm_step >1
 			pMap.put("bm_pos", Integer.parseInt(pMap.get("bm_pos").toString())+1);
 			pMap.put("bm_step", Integer.parseInt(pMap.get("bm_step").toString())+1);
 		}

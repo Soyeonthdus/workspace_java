@@ -14,14 +14,14 @@
 	if(getBoardList!=null && getBoardList.size()>0){
 		bm_title = getBoardList.get(0).get("BM_TITLE").toString();
 		bm_writer = getBoardList.get(0).get("BM_WRITER").toString();
-		//bm_content = getBoardList.get(0).get("BM_CONTENT").toString();
+		bm_content = getBoardList.get(0).get("BM_CONTENT").toString();
 		bm_pw = getBoardList.get(0).get("BM_PW").toString();
 		bm_no = getBoardList.get(0).get("BM_NO").toString();
 		bm_group = getBoardList.get(0).get("BM_GROUP").toString();
 		bm_pos = getBoardList.get(0).get("BM_POS").toString();
 		bm_step = getBoardList.get(0).get("BM_STEP").toString();
 	}
-	
+	out.print(getBoardList);
 %>    
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -32,8 +32,7 @@
 <%@ include file="../common/easyUI_common.jsp" %>
 <script type="text/javascript">
 	function addAction(){
-		$("#f_boardAdd").attr("method","post");
-		$("#f_boardAdd").attr("action","/board/boardList.mvc?crud=ins");
+		$("#f_boardAdd").attr("action","/board3/boardInsert.st3");
 		$("#f_boardAdd").submit();
 		//부모창에 함수를 호출할때 opener.함수명();
 		//opener.boardList();
@@ -52,6 +51,12 @@
 		//$('#d_boardUpd').dialog('open');	
 		//$('#d_boardUpd').dialog('refresh', '');
 	}
+	
+	boardUpd = () =>{
+		$("#uf_board").attr("action","/board3/boardUpdate.st3");
+		$("#uf_board").submit();
+	}
+	
 	//댓글쓰기
 	function repleForm(){
 		$("#dlg_boardAdd").dialog('open');
@@ -66,15 +71,15 @@
 			    height: 250,
 			    closed: true,
 			    cache: false,
-			    //href: 'boardDelForm.jsp?bm_no=<%=bm_no%>&bm_pw=<%=bm_pw%>',
+			    href: 'boardDelForm.jsp?bm_no=<%=bm_no%>&bm_pw=<%=bm_pw%>',
 			    modal: true
 	   }); 
 	   $('#d_boardDel').dialog('open');		
 	}
 	//글삭제 화면에서 확인 버튼을 클릭했을 때
 	function boardDel(){
-		var db_pw = <%=bm_pw%>
-		var u_pw = $("#u_pw").textbox('getValue');
+		const db_pw = <%=bm_pw%>
+		const u_pw = $("#u_pw").textbox('getValue');
 		//alert("db_pw:"+db_pw+", u_pw:"+u_pw);
 		//alert("사용자가 입력한 비번:"+$("#db_pw").textbox('getValue'));
 		//사용자가 입력한 비번과 DB에서 읽어온 비번을 비교하여
@@ -85,10 +90,11 @@
 			$.messager.confirm('Confirm','정말 삭제하시겠습니까?',function(r){
 			 //r:true-ok, false-cancel
 				if (r){//자바스크립트는 0이면 false 나머지 true
-			    	location.href="./boardList.mvc?crud=del&bm_no=<%=bm_no%>";    
+			    	location.href="./boardDelete.st3?bm_no=<%=bm_no%>";    
 			    }
 			});
 		}else{
+			console.log("비번이 달라요");
 			$("#db_pw").textbox('setValue','');
 		}
 	}
@@ -96,7 +102,7 @@
 		 $('#d_boardDel').dialog('close');
 	}
 	function boardList(){
-		location.href="/board/boardList.jsp";
+		location.href="/board3/boardList.st3";
 	}
 </script>
 </head>
@@ -118,7 +124,7 @@
 	    	</tr>
 	    	<tr>
 	    	<td>내용</td>
-	    	<td><input id="bm_content" value="<%="내용" %>" name="bm_content" data-options="multiline:'true', width:'570px', height:'90px'" class="easyui-textbox"></td>
+	    	<td><input id="bm_content" value="<%=bm_content %>" name="bm_content" data-options="multiline:'true', width:'570px', height:'90px'" class="easyui-textbox"></td>
 	    	</tr>
 	    	<tr>
 	    	<td>비밀번호</td>
@@ -141,27 +147,28 @@
 		<!-- 글삭제  끝   -->
 		<!-- 글수정 시작 -->
 		<div id="d_boardUpd" closed="true" class="easyui-dialog" style="padding:20px 50px">
-<form id="uf_board" method="post" enctype="multipart/form-data">
-<input type="hidden" id="bm_no" name="bm_no" value="<%=0 %>">
-<input type="hidden" id="bm_seq" name="bm_seq" value="<%=1 %>">
+<form id="uf_board" method="get" >
+<input type="hidden" id="bm_no" name="bm_no" value="<%=bm_no %>">
+<input type="hidden" id="bs_seq" name="bs_seq" value="<%=1 %>">
 <input type="hidden" id="old_file" name="old_file" value="이전파일명">
 <table align="center" width="650px" height="280px">
 	<tr>
 		<td width="120px">글제목</td>
 		<td width="580px">
-			<input id="b_title" value="글제목" name="b_title" class="easyui-textbox">
+			<input id="bm_title" value="<%=bm_title%>" name="bm_title" class="easyui-textbox">
+			<%-- <input id="bm_title" value="<%=getBoardList.get(0).get("BM_TITLE").toString()%>" name="bm_title" class="easyui-textbox"> --%>
 		</td>
 	</tr>
 	<tr>
 		<td width="120px">작성자</td>
 		<td width="580px">
-			<input id="b_writer" value="작성자" name="b_writer" class="easyui-textbox">
+			<input id="bm_writer" value="작성자" name="bm_writer" class="easyui-textbox">
 		</td>
 	</tr>	
 	<tr>
 		<td width="120px">내용</td>
 		<td width="580px">
-			<input id="b_content" multiline="true" value="내용" name="b_content" class="easyui-textbox" style="width:100%;height:100px">
+			<input id="bm_content" multiline="true" value="내용" name="bm_content" class="easyui-textbox" style="width:100%;height:100px">
 		</td>
 	</tr>	
 	<tr>
@@ -173,7 +180,7 @@
 	<tr>
 		<td width="120px">비번</td>
 		<td width="580px">
-			<input id="b_pw" name="b_pw" class="easyui-textbox" style="width:100px">
+			<input id="bm_pw" name="bm_pw" class="easyui-textbox" style="width:100px">
 		</td>
 	</tr>	
 </table>
@@ -191,11 +198,12 @@
 form전송시 encType옵션이 추가되면 request객체로 사용자가 입력한 값을 꺼낼 수 없다.
 MultipartRequest  => cos.jar
  -->	
-	<form id="f_boardAdd" method="post" enctype="multipart/form-data">
-	<input type="hidden" name="bm_no" value="0">
-	<input type="hidden" name="bm_group" value="0">
-	<input type="hidden" name="bm_pos" value="0">
-	<input type="hidden" name="bm_step" value="0">
+	<!--  <form id="f_boardAdd" method="post" enctype="multipart/form-data"> -->
+	<form id="f_boardAdd" method="get" >
+	<input type="hidden" name="bm_no" value="<%=bm_no%>">
+	<input type="hidden" name="bm_group" value="<%=bm_group%>">
+	<input type="hidden" name="bm_pos" value="<%=bm_pos%>">
+	<input type="hidden" name="bm_step" value="<%=bm_step%>">
 	<!-- <form id="f_boardAdd"> -->
 	<table>
 		<tr>
