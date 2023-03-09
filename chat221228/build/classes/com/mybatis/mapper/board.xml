@@ -8,7 +8,7 @@
 	</delete>
 	<select id="boardList" parameterType="java.util.HashMap" resultType="map">
 		SELECT
-		       bm.bm_no, bm.bm_title, bm.bm_writer, bs.bs_file
+		       bm.bm_no, bm.bm_title, bm.bm_writer, NVL(bs.bs_file, ' ') bs_file
 		     , bm.bm_hit, bm.bm_group, bm.bm_pos, bm.bm_step
 		     , bm.bm_reg,bm.bm_pw, bm.bm_content
 		  FROM board_master_t bm, board_sub_t bs
@@ -40,6 +40,11 @@
 		INSERT INTO board_sub_t(bm_no, bs_seq, bs_file, bs_size)
 	    VALUES(#{bm_no}, 1, #{bs_file}, #{bs_size})
 	</insert>
+		<update id="hitCount" parameterType="int" >
+		UPDATE board_master_t
+		   SET bm_hit = bm_hit + 1
+		 WHERE bm_no  = #{value}
+	</update>
 	<update id="bStepUpdate" parameterType="map" >
 		UPDATE board_master_t
 		   SET bm_step = bm_step + 1
