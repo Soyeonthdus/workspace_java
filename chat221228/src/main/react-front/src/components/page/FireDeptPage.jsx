@@ -10,6 +10,7 @@ import {
   onValue,
 } from "https://www.gstatic.com/firebasejs/9.17.1/firebase-database.js";
 import DeptRow from '../dept/DeptRow';
+import { useNavigate } from 'react-router-dom';
 
 
 const firebaseConfig = {
@@ -26,7 +27,20 @@ const app = initializeApp(firebaseConfig);
 console.log(app);
 const database = getDatabase()
 
-const FireDeptPage = () => {
+const FireDeptPage = ({authLogic}) => {
+  const navigate = useNavigate()
+  const onLogout = () => {
+    console.log('HomePage onLogout 호출')
+    authLogic.logout()
+  }
+  useEffect(() => {
+    authLogic.onAuthChange(user => {
+      if(!user){
+        navigate("/")
+      }
+    })
+  })
+
   const [depts, setDepts] = useState([]);
   useEffect(
       () => {
@@ -45,7 +59,7 @@ const FireDeptPage = () => {
       console.log(depts)
   return (
     <>
-      <Header />
+      <Header onLogout={onLogout}/>
       <div>부서관리 페이지</div>
       <div className="dept-list">
       <Table striped bordered hover>

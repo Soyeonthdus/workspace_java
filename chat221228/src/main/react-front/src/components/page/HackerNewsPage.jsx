@@ -4,7 +4,7 @@ import { useNavigate } from 'react-router-dom'
 import Bottom from '../include/Bottom'
 import Header from '../include/Header'
 
-const EmpPage = ({authLogic}) => {
+const HackerNewsPage = ({authLogic}) => {
   const navigate = useNavigate()
   const onLogout = () => {
     console.log('HomePage onLogout 호출')
@@ -21,10 +21,10 @@ const EmpPage = ({authLogic}) => {
   return (
     <>
       <Header onLogout={onLogout}/>
-      사원관리시스템
+        HackerNewspage
       <Bottom/>
     </>
   )
 }
 
-export default EmpPage
+export default HackerNewsPage

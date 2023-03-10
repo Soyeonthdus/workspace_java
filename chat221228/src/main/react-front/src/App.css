@@ -1,38 +1,43 @@
-.App {
+* {
+  box-sizing: border-box;
+}
+
+button {
+  outline: none;
+  border: 0;
+  cursor: pointer;
+}
+
+.habit {
+  font-size: 2.5rem; /* root태그 기준값 */
+  padding: 0.5em; /* 내부 여백 */
+  list-style: none; /* li구슬 삭제 */
+}
+
+.habit-count {
+  display: inline-block; /* span태그에 width,height 주려고 */
   text-align: center;
+  line-height: 2.5rem; /* 글자 위치 잡아줌 */
+  border-radius: 50%;
+  margin-left: 0.2rem;
+  margin-right: 0.5rem;
+  background-color: darkseagreen; /* 배경색 */
+  color: white; /* 글자색 */
+  width: 2.5rem;
+  height: 2.5rem;
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.habit-button {
+  font-size: 2.5rem;
+  margin: 0 0.1em;
+  background-color: transparent;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.habit-increase,
+.habit-decrease {
+  color: goldenrod;
 }
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
-.App-link {
-  color: #61dafb;
-}
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.habit-delete {
+  color: darkred;
+  font-size: 2rem;
 }

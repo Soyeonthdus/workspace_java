@@ -1,10 +1,10 @@
-import React from 'react'
-import { useEffect } from 'react'
-import { useNavigate } from 'react-router-dom'
+import React, { useEffect } from 'react'
+import {useNavigate } from 'react-router-dom'
 import Bottom from '../include/Bottom'
 import Header from '../include/Header'
 
-const EmpPage = ({authLogic}) => {
+const BoardPage = ({authLogic}) => {
+  //Single Page Application 컨벤션을 위한 훅
   const navigate = useNavigate()
   const onLogout = () => {
     console.log('HomePage onLogout 호출')
@@ -17,14 +17,21 @@ const EmpPage = ({authLogic}) => {
       }
     })
   })
-
+  
   return (
+    
     <>
-      <Header onLogout={onLogout}/>
-      사원관리시스템
-      <Bottom/>
+        <Header onLogout={onLogout}/>
+            BoardPage
+        <Bottom/>
     </>
+    
+    
   )
 }
 
-export default EmpPage
+export default BoardPage
+
+
+
+
