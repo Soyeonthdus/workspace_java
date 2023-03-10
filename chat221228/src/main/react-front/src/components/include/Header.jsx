@@ -20,6 +20,7 @@ const Header = ({userId, onLogout}) => {
               <Link to ="/board" className="nav-link">게시판</Link>
               <Link to ="/workout" className="nav-link">홈트</Link>
               <Link to ="/youtube" className="nav-link">유튜브</Link>
+              <Link to ="/hackernews" className="nav-link">해커뉴스</Link>
             </Nav>
             {onLogout && <Button variant='primary' onClick={onLogout}>Logout</Button>}
           </Navbar.Collapse>
